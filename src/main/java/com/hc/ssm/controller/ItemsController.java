@@ -17,7 +17,8 @@ public class ItemsController {
 	private ItemsService itemsService;
 	
 	@RequestMapping("/queryItems")
-	public ModelAndView queryItems() throws SQLException {
+	// public ModelAndView queryItems() throws SQLException {
+	public ModelAndView queryItems() {
 		
 		List<Items> list = itemsService.getItemsList();
 		
@@ -27,6 +28,4 @@ public class ItemsController {
 		
 		return modelAndView;
 	}
-	
-
 }
