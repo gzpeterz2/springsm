@@ -1,4 +1,4 @@
-package com.hc.smm.dao;
+package com.hc.ssm.dao;
 
 import java.sql.SQLException;
 import java.util.List;

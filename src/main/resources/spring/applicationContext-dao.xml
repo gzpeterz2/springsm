@@ -38,7 +38,7 @@
 		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml"/>
 	</bean>
 	
-	<bean id="userDao"  class="com.hc.smm.dao.UserDaoImpl" >
+	<bean id="userDao"  class="com.hc.ssm.dao.UserDaoImpl" >
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 	
