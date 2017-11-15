@@ -56,6 +56,7 @@ public class ItemsServiceImpl implements ItemsService {
 		if (id != items.getId()) {
 			System.out.println(items);
 		}
+		items.setId(id);
 		itemsMapper.updateByPrimaryKeyWithBLOBs(items);
 	}
 }

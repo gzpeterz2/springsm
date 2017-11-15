@@ -16,10 +16,23 @@
  ${error.defaultMessage }<br/>
 
 </c:forEach>
-<form id="itemForm" action="${pageContext.request.contextPath }/item/editSubmit.action" method="post" >
+<form id="itemForm" action="${pageContext.request.contextPath }/item/editSubmit.action" 
+	method="post" enctype="multipart/form-data">
 <input type="text" name="id" value="${id }"/>
+<br>
+<input type="text" name="message" value="${message}"/>
 修改商品信息：
 <table width="100%" border=1>
+	<tr>
+		<td>
+			类别
+			<select name="itemsType">
+			<c:forEach items="${itemsType}" var="itemtype" >
+				<option value=${itemtype.key}>${itemtype.value}</option>
+			</c:forEach>
+			</select>
+		</td>
+	</tr>
 <tr>
 	<td>商品名称</td>
 	<td><input type="text" name="name" value="${itemsCustom.name }"/></td>
@@ -30,17 +43,17 @@
 </tr>
 <tr>
 	<td>商品生产日期</td>
-	<%-- <td><input type="text" name="createtime" value="<fmt:formatDate value="${itemsCustom.createtime}" pattern="yyyy-MM-dd HH-mm-ss"/>"/></td> --%>
+	<td><input type="text" name="createtime" value="<fmt:formatDate value="${itemsCustom.createtime}" pattern="yyyy-MM-dd HH:mm:ss"/>"/></td>
 </tr>
 <tr>
 	<td>商品图片</td>
-	<%-- <td>
+	<td>
 		<c:if test="${itemsCustom.pic !=null}">
 			<img src="/pic/${itemsCustom.pic}" width=100 height=100/>
 			<br/>
 		</c:if>
 		<input type="file"  name="pictureFile"/> 
-	</td> --%>
+	</td>
 </tr>
 <tr>
 	<td>商品简介</td>

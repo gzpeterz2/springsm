@@ -17,20 +17,67 @@
      http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
      http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.0.xsd">
 
-	<mvc:annotation-driven />
+	<!-- <mvc:annotation-driven /> -->
+	<!-- <mvc:annotation-driven conversion-service="conversionService">
+	</mvc:annotation-driven>
+	conversionService
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		转换器
+		<property name="converters">
+			<list>
+				<bean class="com.hc.binder.CustomDateConverter"/>
+				<bean class="com.hc.binder.StringTrimConverter"/>
+			</list>
+		</property>
+	</bean> -->
+	
 	<!-- 使用spring组件扫描 -->
 	<context:component-scan base-package="com.hc.ssm.controller" />
+	
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设置上传文件的最大尺寸为5MB -->
+		<property name="maxUploadSize">
+			<value>5242880</value>
+		</property>
+	</bean>
+	
 
 	
 	<!-- 注解处理器映射器 -->
 	<bean
 		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
 	</bean>
-
+	
+	<!-- <bean id="customPropertyEditor" class="com.hc.binder.CustomPropertyEditor" /> -->
+	
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<!-- 转换器 -->
+		<property name="converters">
+			<list>
+				<bean class="com.hc.binder.CustomDateConverter"/>
+				<bean class="com.hc.binder.StringTrimConverter"/>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="customBinder"
+		class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+		<!-- <property name="propertyEditorRegistrars">
+			<list>
+				<ref bean="customPropertyEditor"/>
+			</list>
+		</property> -->
+		<property name="conversionService" ref="conversionService" />
+	</bean>
 
 	<!-- 注解适配器 -->
 	<bean
 		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		 <property name="webBindingInitializer" ref="customBinder"></property> 
 	</bean>
 
 	<!-- 配置视图解析器 要求将jstl的包加到classpath -->
@@ -42,6 +89,5 @@
 	</bean>
 
       <!--  <bean id="itemsService"  class="som.hc.ssm.service.impl.ItemsServiceImpl"  /> -->
-	
      
 </beans>
