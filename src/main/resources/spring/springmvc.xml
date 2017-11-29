@@ -16,9 +16,9 @@
      http://www.springframework.org/schema/tx
      http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
      http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.0.xsd">
-
-	<!-- <mvc:annotation-driven /> -->
-	<!-- <mvc:annotation-driven conversion-service="conversionService">
+     
+	<!-- <mvc:annotation-driven />
+	<mvc:annotation-driven conversion-service="conversionService">
 	</mvc:annotation-driven>
 	conversionService
 	<bean id="conversionService"
@@ -43,7 +43,6 @@
 		</property>
 	</bean>
 	
-
 	
 	<!-- 注解处理器映射器 -->
 	<bean
@@ -78,6 +77,12 @@
 	<bean
 		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
 		 <property name="webBindingInitializer" ref="customBinder"></property> 
+		 <property name="messageConverters">
+			<list>
+				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
+			</list>
+		 </property>
+		 
 	</bean>
 
 	<!-- 配置视图解析器 要求将jstl的包加到classpath -->
@@ -87,6 +92,8 @@
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+	
+	<bean class="com.hc.exception.CustomExceptionResolver"/>
 
       <!--  <bean id="itemsService"  class="som.hc.ssm.service.impl.ItemsServiceImpl"  /> -->
      

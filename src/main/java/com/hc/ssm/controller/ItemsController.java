@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hc.exception.CustomException;
 import com.hc.ssm.po.Items;
 import com.hc.ssm.po.ItemsQueryVo;
 import com.hc.ssm.service.ItemsService;
@@ -33,6 +34,7 @@ public class ItemsController {
 	private ItemsService itemsService;
 	
 	@RequestMapping("/query")
+	// @RequestMapping(value="/query", method={RequestMethod.GET})
 	public ModelAndView query(HttpServletRequest request, ModelMap model) throws SQLException {
 		System.out.println("request id is " + request.getParameter("id"));
 		List<Items> list = null;
@@ -82,10 +84,10 @@ public class ItemsController {
 	
 	@RequestMapping(value="/edit", method={RequestMethod.GET})
 	public String edit(
-			@RequestParam(value="id", required=true) Integer myid,
+			@RequestParam(value="id", defaultValue="2", required=true) Integer myid,
 			Boolean status,
 			ModelMap model
-			) throws SQLException {
+			) throws SQLException, CustomException {
 		Items items = itemsService.findById(myid);
 		model.addAttribute("itemsCustom", items);
 		model.addAttribute("item", items);
@@ -191,14 +193,14 @@ public class ItemsController {
 		// return "success";
 	}*/
 
-	/*@InitBinder
-	public void initBinder(WebDataBinder binder) throws Exception {
-		//注册自定义的属性编辑器  
-	    //1、日期  
-	    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
-	    // 定义此值 是否可以为空
-	    CustomDateEditor dateEditor = new CustomDateEditor(df, true);  
-	    //表示如果命令对象有Date类型的属性，将使用该属性编辑器进行类型转换  
-	    binder.registerCustomEditor(Date.class, dateEditor);      
-	}*/
+//	@InitBinder
+//	public void initBinder(WebDataBinder binder) throws Exception {
+//		//注册自定义的属性编辑器  
+//	    //1、日期  
+//	    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+//	    // 定义此值 是否可以为空
+//	    CustomDateEditor dateEditor = new CustomDateEditor(df, true);  
+//	    //表示如果命令对象有Date类型的属性，将使用该属性编辑器进行类型转换  
+//	    binder.registerCustomEditor(Date.class, dateEditor);      
+//	}
 }
