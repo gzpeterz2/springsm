@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -97,6 +98,18 @@ public class ItemsController {
 		// map.put("004", "inedit");
 		return "editItem";
 		// return "editItem2";
+	}
+
+	@RequestMapping(value="/view/{id}", method={RequestMethod.GET})
+	public String view(
+			@PathVariable("id") Integer myid,
+			ModelMap model
+			) throws SQLException, CustomException {
+		Items items = itemsService.findById(myid);
+		model.addAttribute("itemsCustom", items);
+		model.addAttribute("item", items);
+		model.addAttribute("id", myid);
+		return "editItem";
 	}
 	
 	// @RequestMapping(value="/editSubmit", method={RequestMethod.POST} )

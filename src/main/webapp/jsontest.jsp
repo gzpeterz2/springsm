@@ -22,6 +22,24 @@ function requestJson() {
 		} 
 	});
 }
+
+function responseJson(){
+	
+	$.ajax({
+		url:"${pageContext.request.contextPath }/responseJson.action",
+		type:"post",
+		//contentType:"application/json;charset=utf-8",
+		//请求key/value数据
+		data:"name=手机&price=1999",
+		success:function(data){
+			
+			alert(data.name);
+		}
+		
+		
+	});
+	
+}
 </script>
 </head>
 <body> 
